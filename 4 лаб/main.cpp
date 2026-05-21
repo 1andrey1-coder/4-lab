@@ -1,41 +1,38 @@
-#include <iostream>
-#include <cmath>
-#include "triangle.h"
+#include <stdio.h>
+#include "geometry.h"
+#ifdef _WIN32
 #include <windows.h>
-
-
-bool isTriangle(double a, double b, double c) {
-    return (a + b > c) && (a + c > b) && (b + c > a);
-}
-
-double calculatePerimeter(double a, double b, double c) {
-    return a + b + c;
-}
-
-double calculateArea(double a, double b, double c) {
-    double p = (a + b + c) / 2.0;
-    return std::sqrt(p * (p - a) * (p - b) * (p - c));
-}
-
+#endif
 
 int main() {
-    
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
-    setlocale(LC_ALL, "Russian");
-    
 
+    #ifdef _WIN32
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
+    #endif
     double a, b, c;
-    std::cout << "Ââĺäčňĺ äëčíű ňđĺő ńňîđîí ňđĺóăîëüíčęŕ: ";
-    std::cin >> a >> b >> c;
 
-    if (isTriangle(a, b, c)) {
-        std::cout << "Ďĺđčěĺňđ: " << calculatePerimeter(a, b, c) << std::endl;
-        std::cout << "Ďëîůŕäü: " << calculateArea(a, b, c) << std::endl;
+    printf("Введите три стороны треугольника: ");
+    if (scanf("%lf %lf %lf", &a, &b, &c) != 3) {
+        printf("Ошибка ввода\n");
+        return 1;
     }
-    else {
-        std::cout << "Îřčáęŕ: Ňđĺóăîëüíčę ń ňŕęčěč ńňîđîíŕěč íĺ ńóůĺńňâóĺň." << std::endl;
+
+    if (a <= 0 || b <= 0 || c <= 0) {
+        printf("Стороны должны быть больше нуля\n");
+        return 1;
     }
+
+    if ((a + b <= c) || (a + c <= b) || (b + c <= a)) {
+        printf("Треугольник с такими сторонами не существует\n");
+        return 1;
+    }
+
+    double perimeter = getPerimeter(a, b, c);
+    double area = getArea(a, b, c);
+
+    printf("Периметр: %.2lf\n", perimeter);
+    printf("Площадь: %.2lf\n", area);
 
     return 0;
 }
