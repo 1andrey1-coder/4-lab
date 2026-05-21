@@ -29,7 +29,7 @@ int main() {
     }
 
     double perimeter = getPerimeter(a, b, c);
-    double area = getArea(a, b, c);
+    double area = getAs(a, b, c);
 
     printf("Периметр: %.2lf\n", perimeter);
     printf("Площадь: %.2lf\n", area);
